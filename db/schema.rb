@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_10_195734) do
+ActiveRecord::Schema.define(version: 2022_01_10_201925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "back_personalizacions", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "personalizacion_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["personalizacion_id"], name: "index_back_personalizacions_on_personalizacion_id"
+    t.index ["product_id"], name: "index_back_personalizacions_on_product_id"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -30,11 +39,67 @@ ActiveRecord::Schema.define(version: 2022_01_10_195734) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "front_personalizacions", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "personalizacion_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["personalizacion_id"], name: "index_front_personalizacions_on_personalizacion_id"
+    t.index ["product_id"], name: "index_front_personalizacions_on_product_id"
+  end
+
+  create_table "personalizacion_prices", force: :cascade do |t|
+    t.integer "price"
+    t.integer "min"
+    t.integer "max"
+    t.bigint "personalizacion_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["personalizacion_id"], name: "index_personalizacion_prices_on_personalizacion_id"
+  end
+
   create_table "personalizacions", force: :cascade do |t|
     t.string "name"
     t.string "size"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "product_categories", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_product_categories_on_category_id"
+    t.index ["product_id"], name: "index_product_categories_on_product_id"
+  end
+
+  create_table "product_colors", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "color_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["color_id"], name: "index_product_colors_on_color_id"
+    t.index ["product_id"], name: "index_product_colors_on_product_id"
+  end
+
+  create_table "product_prices", force: :cascade do |t|
+    t.integer "price"
+    t.integer "min"
+    t.integer "max"
+    t.bigint "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_product_prices_on_product_id"
+  end
+
+  create_table "product_sizes", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "size_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_product_sizes_on_product_id"
+    t.index ["size_id"], name: "index_product_sizes_on_size_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -63,4 +128,16 @@ ActiveRecord::Schema.define(version: 2022_01_10_195734) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "back_personalizacions", "personalizacions"
+  add_foreign_key "back_personalizacions", "products"
+  add_foreign_key "front_personalizacions", "personalizacions"
+  add_foreign_key "front_personalizacions", "products"
+  add_foreign_key "personalizacion_prices", "personalizacions"
+  add_foreign_key "product_categories", "categories"
+  add_foreign_key "product_categories", "products"
+  add_foreign_key "product_colors", "colors"
+  add_foreign_key "product_colors", "products"
+  add_foreign_key "product_prices", "products"
+  add_foreign_key "product_sizes", "products"
+  add_foreign_key "product_sizes", "sizes"
 end
