@@ -1,12 +1,25 @@
-.navbar-lewagon {
-  justify-content: space-between;
-  background: white;
+.navbar {
+  padding-left: 30px;
+  padding-right: 50px;
+  background-color: white!important;
+  li{
+    font-size: 20px;
+    padding-right: 30px;
+  }
+
 }
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
+.nav-link {
+  font-size: 20px;
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+.filippo {
+  position: relative;
+  font-size: 20px;
+}
+
+
+.logo{
+  height: 50px;
+  padding-right: 25px;
 }

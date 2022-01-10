@@ -1,1 +1,136 @@
 // Specific CSS for your home-page
+body {
+  background-color: white;
+}
+
+.banner {
+  background-size: cover;
+  background-position: center;
+  height: 730px;
+}
+
+.banner h1 {
+  position: absolute;
+  top: 135px;
+  left: 45px;
+  margin: 0;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  font-size: 60px;
+}
+
+.banner h3 {
+  position: absolute;
+  top: 580px;
+  left: 45px;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  font-size: 44px;
+  padding-bottom: 12px;
+}
+
+.banner p {
+  position: absolute;
+  top: 635px;
+  left: 45px;
+  margin: 0;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  font-size: 22px;
+}
+
+.cards {
+  display: flex;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 30px;
+  align-content: center;
+  width: 100% ;
+  overflow-x: auto;
+  padding: 20px;
+}
+
+.categorys{
+  margin-left: 100px;
+  margin-right: 100px;
+  padding-bottom: 200px;
+}
+
+// Smallest device
+@media (min-width: 100px) and (max-width: 575px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+  .cards {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .cards {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.img-user{
+  height: 40vh;
+  width: 60vh;
+  object-fit: cover;
+  border-radius: 15px;
+  max-width: 450px;
+  max-height: 350px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 20vw;
+  justify-content: center;
+  align-items: center;
+
+  &.flex-item:not(:last-of-type) {
+    margin-right: 12px;
+  }
+}
+.user-name__card{
+  font-size: 30px;
+  color: white;
+  font-weight: bolder;
+}
+
+.img-user:hover {
+  background-color: white;
+  opacity: .7;
+  .user-name__card{
+    display: block;
+    color: white;
+    font-size: 40px;
+    font-weight: bolder;
+  }
+}
+
+.shop-by {
+  padding-top: 60px;
+  padding-bottom: 30px;
+  font-size: 45px;
+  text-align: center;
+}
