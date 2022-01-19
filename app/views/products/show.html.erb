@@ -1,0 +1,20 @@
+<h1><%= @product.name %></h1>
+  <p><%= @product.description %></p>
+  <p>sku: <%= @product.sku %></p>
+  <img src="<%= @photo %>" alt="<%= @product.name %>" width="500" height="600">
+
+  <h2>Colors:</h2>
+  <% @product.product_colors.each do |product_color| %>
+    <%= link_to change_color_product_path(product_color), method: :patch, class: "" do %>
+      <p><%= product_color.color.name %></p>
+    <% end %>
+  <% end %>
+  <% @product.sizes.each do |size| %>
+    <p><%= size.name %></p>
+  <% end %>
+  <% @product.front_personalizacions.each do |pers| %>
+    <p><%= pers.personalizacion.name %></p>
+  <% end %>
+  <% @product.product_prices.each do |price| %>
+    <p>From <%= price.min %> to <%= price.max %> = <%= price.price %></p>
+  <% end %>

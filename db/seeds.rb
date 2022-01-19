@@ -30,8 +30,7 @@ Personalizacion.delete_all
 puts "DB clean"
 
 CSV.foreach(products_path, csv_options) do |row|
-  row[0] = Product.create(name: row[0], description: row[1], sku: row[2])
-  row[0].photo.attach(io: File.open(URI.open("#{row[3]}")), filename: 'nes.jpg', content_type: 'image/jpg')
+  Product.create(name: row[0], description: row[1], sku: row[2], link: row[3])
 end
 puts "Products crated"
 
@@ -46,8 +45,7 @@ end
 puts "Colors crated"
 
 CSV.foreach(categories, csv_options) do |row|
-  row[2] = Category.create(name: row[0], description: row[1], sku: row[2])
-  #row[2].photo.attach(io: File.open(URI.open("#{row[3]}")), filename: 'nes.jpg', content_type: 'image/jpg')
+  row[2] = Category.create(name: row[0], description: row[1], sku: row[2], link: row[3])
 end
 puts "Categories created"
 

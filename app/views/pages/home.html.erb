@@ -9,9 +9,11 @@
 <br>
 <div class="categorys">
   <div class="cards">
-    <div class='img-user' style="background-image:url('https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80')" >
-      <p class='user-name__card'> CAMISETAS</p>
-    </div>
+    <%= link_to products_path(sku: 1) do %>
+      <div class='img-user' style="background-image:url('https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80')" >
+        <p class='user-name__card'> CAMISETAS</p>
+      </div>
+    <% end %>
     <div class='img-user' style="background-image:url('https://images.unsplash.com/photo-1609873814058-a8928924184a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8aG9vZGllfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60')" >
       <p class='user-name__card'> SUDADERAS</p>
     </div>
@@ -29,3 +31,7 @@
     </div>
   </div>
 </div>
+
+<button type="button" class="btn-myhouse">
+  <%= link_to 'All products', products_path, :class => "button"%>
+</button>
