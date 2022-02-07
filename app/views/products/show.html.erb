@@ -1,20 +1,117 @@
-<h1><%= @product.name %></h1>
-  <p><%= @product.description %></p>
-  <p>sku: <%= @product.sku %></p>
-  <img src="<%= @photo %>" alt="<%= @product.name %>" width="500" height="600">
+<script src="product.js"></script>
 
-  <h2>Colors:</h2>
-  <% @product.product_colors.each do |product_color| %>
-    <%= link_to change_color_product_path(product_color), method: :patch, class: "" do %>
-      <p><%= product_color.color.name %></p>
+<div class="product-page">
+  <div class="product-left">
+
+    <div class="product-description">
+      <h1><%= @product.name %></h1>
+      <h2><%= @product.description %></h2>
+      <p>sku: <%= @product.sku %></p>
+    </div>
+
+    <div class="product-colors">
+      <% @product.product_colors.each_with_index do |product_color, index| %>
+        <% if index == 0 %>
+          <button class="tablinks-cus btn-dashboard-new-secondary" onclick="openTab(event, '<%= index %>')" id="tab-cus-active" ><%= product_color.color.name %></button>
+          <div id="<%= index %>" class="tabcontent-cus campaigns ">
+            <img src="<%= product_color.link %>" alt="<%= @product.name %>" id="photo">
+          </div>
+        <% else %>
+          <button class="tablinks-cus btn-dashboard-new-secondary" onclick="openTab(event, '<%= index %>')"><%= product_color.color.name %></button>
+          <div id="<%= index %>" class="tabcontent-cus campaigns ">
+            <img src="<%= product_color.link %>" alt="<%= @product.name %>" id="photo">
+          </div>
+        <% end  %>
+      <% end %>
+    </div>
+
+    <div class="personalizacion">
+      <p>serigrafia</p>
+      <input type="checkbox" id="serigrafia" value="no">
+    </div>
+
+    <div class="price-caluculator">
+      <div class="price-input">
+        <input type="number" name="quantity" id="quantity">
+      </div>
+      <div class="prices">
+        <h3>desde <strong id="total-price"> <%= @product.product_prices.last.price %></strong> € | <strong id="unit-price"><%= @product.product_prices.last.price %></strong> €/unidad</h3>
+        <p><strong id="iva-price"><%= @product.product_prices.last.price * 1.21 %></strong> € incl. IVA</p>
+      </div>
+    </div>
+
+    <% @product.front_personalizacions.each do |pers| %>
+      <p><%= pers.personalizacion.name %></p>
     <% end %>
-  <% end %>
-  <% @product.sizes.each do |size| %>
-    <p><%= size.name %></p>
-  <% end %>
-  <% @product.front_personalizacions.each do |pers| %>
-    <p><%= pers.personalizacion.name %></p>
-  <% end %>
-  <% @product.product_prices.each do |price| %>
-    <p>From <%= price.min %> to <%= price.max %> = <%= price.price %></p>
-  <% end %>
+  </div>
+
+</div>
+
+<script>
+  const input = document.getElementById('quantity');
+  const totalPrice = document.getElementById('total-price');
+  const unitPrice = document.getElementById('unit-price');
+  const ivaPrice = document.getElementById('iva-price');
+  const serigrafiaBox = document.getElementById('serigrafia');
+
+
+  const prices = [<%= @product.product_prices[0].price %>, <%= @product.product_prices[1].price %>,<%= @product.product_prices[2].price %>, <%= @product.product_prices[3].price %>]
+  let serigrafia = [0, 0, 0, 0]
+
+  input.addEventListener('change', updateValue);
+  serigrafiaBox.addEventListener('change', addSerigrafia);
+
+  function updateValue(e) {
+    if (input.value < 5){
+      totalPrice.textContent = input.value * (prices[0] + serigrafia[0]);
+      unitPrice.textContent = (prices[0] + serigrafia[0]);
+      ivaPrice.textContent = (input.value * (prices[0] + serigrafia[0])) * 1.21;
+    }else{
+      if(input.value < 10){
+        totalPrice.textContent = input.value * (prices[1] + serigrafia[1]);
+        unitPrice.textContent = (prices[1] + serigrafia[1]);
+        ivaPrice.textContent = (input.value * (prices[1] + serigrafia[1])) * 1.21;
+      }else{
+        if(input.value < 25){
+          totalPrice.textContent = input.value * (prices[2] + serigrafia[2]);
+          unitPrice.textContent = (prices[2] + serigrafia[2]);
+          ivaPrice.textContent = (input.value * (prices[2] + serigrafia[2])) * 1.21;
+        }else{
+          totalPrice.textContent = input.value * (prices[3] + serigrafia[3]);
+          unitPrice.textContent = (prices[3] + serigrafia[3]);
+          ivaPrice.textContent = (input.value * (prices[3] + serigrafia[3])) * 1.21;
+        }
+      }
+    }
+  }
+
+  function addSerigrafia(e) {
+    if (serigrafiaBox.checked){
+      serigrafia = [5, 4, 3, 2]
+    }else{
+      serigrafia = [0, 0, 0, 0]
+    }
+    if (input.value !== null){
+      updateValue()
+    }
+  }
+</script>
+
+<script>
+function openTab(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent-cus");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks-cus");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+document.getElementById("tab-cus-active").click();
+
+
+</script>

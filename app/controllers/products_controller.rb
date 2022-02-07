@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @product_colors = @product.product_colors
-    @photo = @product.link
+
   end
 
   def change_color
@@ -19,6 +19,6 @@ class ProductsController < ApplicationController
     product = product_color.product
     photo = product_color.link
     product.update(link: photo)
-    redirect_to product_path(product)
+
   end
 end
