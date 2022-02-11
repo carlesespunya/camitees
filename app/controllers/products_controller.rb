@@ -11,6 +11,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @product_colors = @product.product_colors
+    @prices = [10, 9, 8, 7, 6]
 
   end
 

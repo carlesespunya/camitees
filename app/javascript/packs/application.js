@@ -24,7 +24,13 @@ import "bootstrap";
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 
+import { productShow } from '../components/products-show';
+import { openTab } from '../components/open-tab';
+import { updateValue } from '../components/products-show';
+
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   // initSelect2();
+  productShow();
+  openTab();
 });
